@@ -20,13 +20,9 @@ namespace Struct.Core
         /// </summary>
         public LocalStorage()
         {
-            // if file doesn't exist, create new data dictionary
-            if (!File.Exists(this.storageFile))
-                this.localData = new Dictionary<string, byte[]>();
-            
-            // if file exists, read data from it
-            else
-                this.localData = JsonConvert.DeserializeObject<Dictionary<string, byte[]>>(File.ReadAllText(storageFile));
+            this.localData = File.Exists(this.storageFile) ?
+                JsonConvert.DeserializeObject<Dictionary<string, byte[]>>(File.ReadAllText(storageFile)) :
+                new Dictionary<string, byte[]>();
         }
 
         /// <summary>

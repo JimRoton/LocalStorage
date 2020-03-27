@@ -16,7 +16,7 @@ namespace Test
                 {
                     name = "Jim Roton",
                     phone = "214.735.0934",
-                    address = new Address()
+                    address = new SampleObject.Address()
                     {
                         address = "2316 Elm Valley Dr",
                         city = "Little Elm",
@@ -51,17 +51,17 @@ namespace Test
 
                 return sb.ToString();
             }
-        }
 
-        public class Address
-        {
-            public string address { get; set; }
+            public class Address
+            {
+                public string address { get; set; }
 
-            public string city { get; set; }
+                public string city { get; set; }
 
-            public string state { get; set; }
+                public string state { get; set; }
 
-            public string zip { get; set; }
+                public string zip { get; set; }
+            }
         }
     }
 }
