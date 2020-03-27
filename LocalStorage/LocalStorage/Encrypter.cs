@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Text;
 using System.Security.Cryptography;
 
@@ -23,7 +22,7 @@ namespace Struct.Core
                 am.IV = iv;
 
                 // create the encrytor
-                ICryptoTransform encryptor = am.CreateEncryptor(key, iv);
+                ICryptoTransform encryptor = am.CreateEncryptor(am.Key, am.IV);
 
                 try
                 {
@@ -52,7 +51,7 @@ namespace Struct.Core
                 am.IV = iv;
 
                 // create the decryptor
-                ICryptoTransform decryptor = am.CreateDecryptor(key, iv);
+                ICryptoTransform decryptor = am.CreateDecryptor(am.Key, am.IV);
 
                 try
                 {
