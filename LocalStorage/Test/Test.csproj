@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\Address.cs" />
+    <Compile Include="Items\ItemBase.cs" />
+    <Compile Include="Items\Player.cs" />
+    <Compile Include="Items\Sword.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
