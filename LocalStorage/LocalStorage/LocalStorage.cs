@@ -26,6 +26,21 @@ namespace Struct.Core
         }
 
         /// <summary>
+        /// Returns true/false if
+        /// the key exists in the
+        /// dictionary.
+        /// </summary>
+        /// <param name="propertyName">Property Name</param>
+        /// <returns>Exists</returns>
+        public bool Exists(string propertyName)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentNullException("propertyName");
+            else
+                return this.localData.ContainsKey(propertyName);
+        }
+
+        /// <summary>
         /// Get data from the local
         /// storage and convert it
         /// to an object.
