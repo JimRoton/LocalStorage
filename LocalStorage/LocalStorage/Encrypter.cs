@@ -22,7 +22,7 @@ namespace Struct.Core
                 am.IV = iv;
 
                 // create the encrytor
-                ICryptoTransform encryptor = am.CreateEncryptor(am.Key, am.IV);
+                ICryptoTransform encryptor = am.CreateEncryptor();
 
                 try
                 {
@@ -51,7 +51,7 @@ namespace Struct.Core
                 am.IV = iv;
 
                 // create the decryptor
-                ICryptoTransform decryptor = am.CreateDecryptor(am.Key, am.IV);
+                ICryptoTransform decryptor = am.CreateDecryptor();
 
                 try
                 {
