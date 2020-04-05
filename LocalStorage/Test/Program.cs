@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 
 using Struct.Core;
 
@@ -7,7 +8,9 @@ namespace Test
     class Program
     {
         // local storage
-        private static LocalStorage localStorage = new LocalStorage();
+        private static LocalStorage localStorage = new LocalStorage(
+            ConfigurationManager.AppSettings.Get("LocalStorage.Key")
+        );
 
         static void Main(string[] args)
         {

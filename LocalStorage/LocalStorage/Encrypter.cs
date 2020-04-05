@@ -6,11 +6,9 @@ namespace Struct.Core
 {
     public static class Encrypter
     {
-        private static byte[] key = "JimRoton".ToBytes(16);
+        private static string iv = "7dbfd6e0-1276-486a-9553-46fe48ea221c";
 
-        private static byte[] iv = "NotorMij".ToBytes(16);
-
-        public static byte[] Encrypt(string unEncryptedString)
+        public static byte[] Encrypt(string unEncryptedString, string key)
         {
             // create aes object
             using (AesManaged am = new AesManaged())
@@ -18,8 +16,8 @@ namespace Struct.Core
                 am.Padding = PaddingMode.PKCS7;
                 am.BlockSize = 128;
                 am.KeySize = 256;
-                am.Key = key;
-                am.IV = iv;
+                am.Key = key.ToBytes(32);
+                am.IV = iv.ToBytes(16);
 
                 // create the encrytor
                 ICryptoTransform encryptor = am.CreateEncryptor();
@@ -39,7 +37,7 @@ namespace Struct.Core
             }
         }
 
-        public static string Decrypt(byte[] encryptedBytes)
+        public static string Decrypt(byte[] encryptedBytes, string key)
         {
             // create aes object
             using (AesManaged am = new AesManaged())
@@ -47,8 +45,8 @@ namespace Struct.Core
                 am.Padding = PaddingMode.PKCS7;
                 am.BlockSize = 128;
                 am.KeySize = 256;
-                am.Key = key;
-                am.IV = iv;
+                am.Key = key.ToBytes(32);
+                am.IV = iv.ToBytes(16);
 
                 // create the decryptor
                 ICryptoTransform decryptor = am.CreateDecryptor();

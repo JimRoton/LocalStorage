@@ -8,6 +8,17 @@ namespace Struct.Core
 {
     public class LocalStorage
     {
+        /// <summary>
+        /// This is the encryption key
+        /// used for encrypting the
+        /// data stored locally.
+        /// </summary>
+        private readonly string encryptionKey;
+
+        /// <summary>
+        /// This is the file name of
+        /// the storage file
+        /// </summary>
         private readonly string storageFile = "storage";
 
         /// <summary>
@@ -18,8 +29,13 @@ namespace Struct.Core
         /// <summary>
         /// Construct
         /// </summary>
-        public LocalStorage()
+        public LocalStorage(string encryptionKey)
         {
+            if (string.IsNullOrWhiteSpace(encryptionKey))
+                throw new ArgumentNullException("EncryptionKey");
+            else
+                this.encryptionKey = encryptionKey;
+
             this.localData = File.Exists(this.storageFile) ?
                 JsonConvert.DeserializeObject<Dictionary<string, byte[]>>(File.ReadAllText(storageFile)) :
                 new Dictionary<string, byte[]>();
@@ -57,7 +73,7 @@ namespace Struct.Core
             // if key exists decrypt/convert and return
             if (this.localData.ContainsKey(propertyName))
                 return JsonConvert.DeserializeObject<T>(
-                    Encrypter.Decrypt(this.localData[propertyName])
+                    Encrypter.Decrypt(this.localData[propertyName], this.encryptionKey)
                 );
 
             // if key doesn't exist return default
@@ -83,7 +99,8 @@ namespace Struct.Core
             if (this.localData.ContainsKey(propertyName))
             {
                 this.localData[propertyName] = Encrypter.Encrypt(
-                    JsonConvert.SerializeObject(propertyData)
+                    JsonConvert.SerializeObject(propertyData),
+                    this.encryptionKey
                 );
             }
 
@@ -91,7 +108,10 @@ namespace Struct.Core
             else
             {
                 this.localData.Add(propertyName,
-                    Encrypter.Encrypt(JsonConvert.SerializeObject(propertyData))
+                    Encrypter.Encrypt(
+                        JsonConvert.SerializeObject(propertyData),
+                        this.encryptionKey
+                    )
                 );
             }
 
